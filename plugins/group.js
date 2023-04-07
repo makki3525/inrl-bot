@@ -22,7 +22,7 @@ const fs = require('fs');
 	async (m,conn,match ) => {
 	        let admin = await isAdmin(m, conn);
 	        let BotAdmin = await isBotAdmin(m, conn);
-	        if(!admin && !m.client.isCreater) return await m.reply('Action only For admin or Owner');
+	        if(!admin && !m.client.isCreator) return await m.reply('Action only For admin or Owner');
             const groupMetadata = await conn.groupMetadata(m.key.remoteJid).catch((e) => {});
             const participants = await groupMetadata.participants;
             if(m.quoted){
@@ -59,7 +59,7 @@ local,
 contact,
 status } = await quoted(message);
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
-        if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+        if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
         if(!message.quoted) return mesage.reply('reply to a user');
         await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
@@ -97,7 +97,7 @@ local,
 contact,
 status }= await quoted(message);
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
-        if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+        if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
         if(!message.quoted) return mesage.reply('reply to a user');
         await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
@@ -136,7 +136,7 @@ local,
 contact,
 status }= await quoted(message);
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
-        if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+        if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
         if(!message.quoted) return mesage.reply('reply to a user');
             await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
@@ -151,7 +151,7 @@ status }= await quoted(message);
             });
             } else if(match.toLowerCase() == 'all'){
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
-        if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+        if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
         const groupMetadata = await client.groupMetadata(message.from).catch(e => {})
 	       const participants = await groupMetadata.participants;
            let admins = await participants.filter(v => v.admin !== null).map(v => v.id);
@@ -190,10 +190,13 @@ contact,
 status }= await quoted(message);
   match = match.replaceAll(' ','');
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
-        if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+        if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
         if(match){
         let users = match.replace(/[^0-9]/g,
-'')+'@s.whatsapp.net'
+'')+'@s.whatsapp.net';
+    let info = await client.onWhatsApp(users);
+	ex = info.map((jid) => jid.jid);
+	if (!ex.includes(users)) return await message.reply("_This number doesn't exists on whatsapp_");
         const su = await client.groupParticipantsUpdate(message.from,
 [users],
 "add" );
@@ -307,7 +310,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
     if(!message.quoted) return messag.reply('reply to an image!');
     if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
     let _message = message.quoted.imageMessage;
@@ -330,7 +333,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
     if(!message.quoted) return messag.reply('reply to an image!');
     if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
 		let download = await message.quoted.download();
@@ -351,7 +354,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 const {text,
 document,
 audio,
@@ -386,7 +389,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 const {text,
 document,
 audio,
@@ -428,7 +431,7 @@ status }= await quoted(message);
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 try {
             await client.groupSettingUpdate(message.from,
 "announcement");
@@ -458,7 +461,7 @@ status }= await quoted(message);
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 try {
             await client.groupSettingUpdate(message.from,
 "not_announcement");
@@ -479,7 +482,7 @@ async (message,client,match) => {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 const {text,
 document,
 audio,
@@ -518,7 +521,7 @@ status }= await quoted(message);
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 try {
             await client.groupSettingUpdate(message.from,
 "unlocked");
@@ -563,7 +566,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 const {text,
 document,
 audio,
@@ -592,7 +595,7 @@ try {
     const BotAdmin = await isBotAdmin(message,client);
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
-    if(!admin && !message.client.isCreater) return await message.reply('Action only For admin or Owner');
+    if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
 const {text,
 document,
 audio,
@@ -658,22 +661,10 @@ local,
 contact,
 status }= await quoted(message);
         let urlArray = (match).trim().split("/")[3]; 
-        let { id,
-owner,
-subject,
-subjectOwner,
-subjectTime,
-creation,
-desc,
-descOwner,
-descId,
-restrict,
-announce,
-size,
-participants } = await client.groupGetInviteInfo(urlArray);
-        await client.sendMessage( message.from,
-{ text: `💗 Joined: ${id}\nowner: ${owner} \nname:${subject} \ncreater:${subjectOwner} \ntime:${subjectTime} \n:date:${creation} \ndescription: ${desc.toString()} \n${descOwner} \nid:${descId} \nOnlyAdmin:${restrict} \n${announce} \nmembers:${size}` },
-{ quoted: status } );      
+    	const response = await client.groupGetInviteInfo(urlArray)
+		return await client.sendMessage( message.from,
+{ text: "id: " + response.id + "\nsubject: " + response.subject + "\nowner: " + `${response.owner ? response.owner.split('@')[0] : 'unknown'}` + "\nsize: " + response.size + "\nrestrict: " + response.restrict + "\nannounce: " + response.announce + "\ncreation: " + require('moment-timezone')(response.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') + "\ndesc" + response.desc},
+{ quoted: status } );
 } catch (e){
 message.reply(JSON.stringify(e))
      }
