@@ -196,7 +196,7 @@ status }= await quoted(message);
 '')+'@s.whatsapp.net';
     let info = await client.onWhatsApp(users);
 	ex = info.map((jid) => jid.jid);
-	if (!ex.includes(users)) return await message.reply("_This number doesn't exists on whatsapp_");
+	if (!ex.includes(users)) return await message.reply("This number doesn't exists on whatsapp");
         const su = await client.groupParticipantsUpdate(message.from,
 [users],
 "add" );
@@ -311,8 +311,8 @@ try {
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
     if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
-    if(!message.quoted) return messag.reply('reply to an image!');
-    if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
+    if(!message.quoted) return await message.reply('reply to an image!');
+    if(!message.quoted.imageMessage) return await message.reply('reply to an image!');
     let _message = message.quoted.imageMessage;
 	let download = await client.downloadMediaMessage(_message);
     await client.updateProfilePicture(message.from,
@@ -334,8 +334,8 @@ try {
     const admin = await isAdmin(message,client);
     if(!BotAdmin) return await message.reply('Bot must Be Admin');
     if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
-    if(!message.quoted) return messag.reply('reply to an image!');
-    if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
+    if(!message.quoted) return await message.reply('reply to an image!');
+    if(!message.quoted.imageMessage) return await message.reply('reply to an image!');
 		let download = await message.quoted.download();
 		await message.updateProfilePicture(message.from,download );
 		return message.reply ('group icon updated!');
@@ -678,8 +678,8 @@ type :'owner',
 fromMe :true},
 	async (message,client,match) => {
 try {
-    if(!message.quoted) return messag.reply('reply to an image!');
-    if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
+    if(!message.quoted) return await message.reply('reply to an image!');
+    if(!message.quoted.imageMessage) return await message.reply('reply to an image!');
 	let _message = message.quoted.imageMessage;
 	let download = await client.downloadMediaMessage(_message);
     await client.updateProfilePicture(message.client.botNumber,download ).catch((err) => fs.unlinkSync(download))
@@ -697,8 +697,8 @@ fromMe:true
 },
 	    async (message,client,match) => {
 try {
-        if (!message.quoted) return messag.reply('reply to an image!');
-        if(!message.quoted.imageMessage) return messag.reply('reply to an image!');
+        if (!message.quoted) return await message.reply('reply to an image!');
+        if(!message.quoted.imageMessage) return await message.reply('reply to an image!');
 		let download = await message.quoted.download();
 		await message.updateProfilePicture(message.client.botNumber,download );
 		return message.reply ('profile picture updated!');
