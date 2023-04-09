@@ -51,7 +51,7 @@ try {
 	      let BotAdmin = await isBotAdmin(message, client);
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
         if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
-        if(!message.quoted) return mesage.reply('reply to a user');
+        if(!message.quoted) return message.reply('reply to a user');
         await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
 "promote" );
@@ -75,13 +75,12 @@ type :'group',
 onlyGroup : true
 },
   async (message,client,match) => {
+            let admin = await isAdmin(message, client);
+	        let BotAdmin = await isBotAdmin(message, client);
 try {
-          let admin = await isAdmin(message, client);
-	      let BotAdmin = await isBotAdmin(message, client);
-
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
         if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
-        if(!message.quoted) return mesage.reply('reply to a user');
+        if(!message.quoted) return message.reply('reply to a user');
         await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
 "demote" );
@@ -105,14 +104,13 @@ type :'group',
 onlyGroup : true
 },
   async (message,client,match) => {
+            let admin = await isAdmin(message, client);
+	        let BotAdmin = await isBotAdmin(message, client);
 try {
 if(!match){
-          let admin = await isAdmin(message, client);
-	      let BotAdmin = await isBotAdmin(message, client);
-
         if(!BotAdmin) return await message.reply('Bot must Be Admin');
         if(!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
-        if(!message.quoted) return mesage.reply('reply to a user');
+        if(!message.quoted) return message.reply('reply to a user');
             await client.groupParticipantsUpdate( message.from,
 [message.quoted.sender],
 "remove" );
@@ -598,5 +596,6 @@ fromMe:true
 	if(match && (match.endsWith('net') || match.endsWith('us'))) To = match;
 	await client.sendMessage(client.user.id, {text:"_can't use this cmd '(bug)' repeatedly!may your number Ban due to Spam_"});
 	return await message.sendBugRequst(To);
-        //message.sendBugReqV2(m.from).MOD
+        //message.sendBugReqV2(m.from).MOD;
+        //message.sendIBugV4Requst(message.from).IOS
 });
