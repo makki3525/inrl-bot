@@ -5,7 +5,7 @@ const {getVar} = require('../lib/database/variable');
 
 inrl(
 	   {
-		pattern: ["removebg", "rmbg"],
+		pattern: ["rmbg"],
 		desc: 'To remove bg of any image',
     sucReact: "😉",
     category: ["system", "all","create","photo","fun"],
