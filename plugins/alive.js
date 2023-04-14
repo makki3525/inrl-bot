@@ -1,5 +1,4 @@
 const os = require("os");
-const got = require('got')
 const speed = require("performance-now");
 const { inrl , tiny, config, inrlQuita, insult , getBuffer, randomStyle, styletext, send_alive, send_menu } = require('../lib/')
 const Config = require("../config");
@@ -7,7 +6,7 @@ const {getVar}=require('../lib/database/variable');
 
 inrl(
 	   {
-	pattern: ['list'],
+	pattern: 'list',
 	desc: 'To viwe list of categories',
         sucReact: "💯",
         category: ["system", "all"],
@@ -40,8 +39,8 @@ return await client.sendMessage( message.from, button, { quoted: message});
 });
 inrl(
 	   {
-		pattern: ['ping'],
-		desc: 'To check ping',
+	pattern: 'ping',
+	desc: 'To check ping',
         sucReact: "💯",
         category: ["system", "all"],
         type : 'info'
@@ -53,7 +52,7 @@ inrl(
 		     return await message.reply('Pong! ' + (end - start) + ' ms');
 	 }
 );
-inrl({ pattern: ['del'], desc: "to delete unwanted grp msg sended by bot",sucReact: "⚒️",  category: ["all"], type: 'whatsapp'}, async (message, client) => {
+inrl({ pattern: 'del', desc: "to delete unwanted grp msg sended by bot",sucReact: "⚒️",  category: ["all"], type: 'whatsapp'}, async (message, client) => {
 try {
 if (!message.client.isCreator) return message.reply('only for owner!');
 if(!message.isGroup) return message.reply('this plugin only works in group!');
@@ -67,8 +66,8 @@ message.reply(JSON.stringify(e))
 );
 inrl(
 	   {
-		pattern: ['dlt'],
-		desc: 'To dlt unwanted msg by admin from group content',
+	pattern: 'dlt',
+	desc: 'To dlt unwanted msg by admin from group content',
         sucReact: "🤌",
         category: ["system", "all"],
         type: 'whatsapp'
@@ -77,7 +76,7 @@ inrl(
     if(match) return;
 try {
         const groupMetadata = message.isGroup ? await client.groupMetadata(message.from).catch(e => {}) : ''
-	const participants = message.isGroup ? await groupMetadata.participants : ''
+	    const participants = message.isGroup ? await groupMetadata.participants : ''
         let admins = message.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : ''
 if(!message.quoted) return message.reply('reply to a group content');
 if(!message.isGroup) return message.reply('only works in group');
@@ -91,12 +90,12 @@ return await client.sendMessage(message.from, {
 		}
 	})
 } catch (e){
-   message.reply(JSON.stringify(e))
+   message.reply(e)
   }
 })
 inrl(
   {
-    pattern: ["alive"],
+    pattern: "alive",
     desc: "to check the bot status",
     sucReact: "🥰",
     category: ["system", "all"],
@@ -105,60 +104,15 @@ inrl(
   async (message, client, match) => {
 return await send_alive(message, client, match)
 });
-inrl(
-  {
-    pattern: ["script"],
-    desc: "to get the bot script",
-    sucReact: "🥵",
-    category: ["system", "all"],
-    type : 'system'
-  },
-  async (message, client) => {
-    let {FOOTER,BOT_INFO,PREFIX,GIT}=await getVar();
-    let perfix  = PREFIX == 'false' ? '' : PREFIX;
-      const response = await got("https://api.github.com/repos/inrl-official/inrl-bot-md")
-      const json = JSON.parse(response.body);
-      let captIon = `╭═══〘${BOT_INFO.split(",")[0]}〙═══⊷❍
-┃☯︎╭──────────────
-┃☯︎│
-┃☯︎│ ᴜꜱᴇʀ : _${message.client.pushName}_
-┃☯︎│ ᴠᴇʀꜱɪᴏɴ : ${tiny(Config.VERSION)}
-┃☯︎│ ɢɪᴛʜᴜʙ : _${GIT}_
-┃☯︎│ ᴛᴜʀᴛᴏʀɪᴀʟ : _${Config.VIDEO}_
-┃☯︎│ ᴛᴏᴛᴇʟ ꜱᴛᴀʀᴇꜱ : ${json.stargazers_count} stars
-┃☯︎│ ꜰᴏʀᴋꜱ: ${json.forks_count} forks
-┃☯︎│
-┃☯︎╰───────────────
-╰═════════════════⊷`
- 
-let buttonMessage = {
-            image: { url: json.owner.avatar_url },
-            caption: captIon,
-            footer: FOOTER,
-            headerType: 1,
-            contextInfo: {
-                externalAdReply: {
-                    title: json.name,
-                    body: json.description ,
-                    thumbnail: await getBuffer(BOT_INFO.split(',')[2]),
-                    mediaType: 2,
-                    mediaUrl: GIT,
-                    sourceUrl: GIT,
-                },
-            },
-        };
-    return await client.sendMessage(message.from, buttonMessage, { quoted: message });
-});
-const bots = require("../lib/perfix");
-const Lang = bots.getString("_whats");
+
 let cTitle = { "search": "Search",  "all": 'All', "downloade": "Downloade", "chat": "Chat","inrl":"Inrl","ibot":"Ibot", "system": "System", 'fun': "Fun", '18+': "18+","ff:":"Ff", 'owner': "Owner", 'create': "Create", 'group': "Group", "logo": "Logo","photo": "Photo","sticker": "Sticker","anime": "Anime" }
 
-inrl({ pattern: ["menu"], desc: Lang.DESCC, sucReact: "📰", category: ["all", "system"], type: 'whatsapp'}, async (message, client) => {
+inrl({ pattern: "menu", desc: "it send available cmds list", sucReact: "📰", category: ["all", "system"], type: 'whatsapp'}, async (message, client) => {
  return await send_menu(message, client);
 });
-bots.categories.map(category => {
+categories.map(category => {
   if (category == 'all') return;
-inrl({ pattern: [`${category}-menu`], sucReact: "📰", category: ["all", "system"], type :'get'}, async (message, client) => {
+inrl({ pattern: `${category}-menu`, sucReact: "📰", category: ["all", "system"], type :'get'}, async (message, client) => {
   let data = await getVar();
   let {FOOTER,BOT_INFO,PREFIX,GIT}=data.data[0];
   let prefix  = PREFIX == 'false' ? '' : PREFIX;
@@ -167,28 +121,21 @@ inrl({ pattern: [`${category}-menu`], sucReact: "📰", category: ["all", "syste
       if (command.dontAddCommandList || command.pattern === undefined || command.pattern === null) return;
       if (command.category.includes(category)) { command.pattern.map((cmd) => CMD_HELP +=  "│ •  "+cmd+"\n")}
     }); 
-   CMD_HELP += "│ \n│    "+FOOTER+"\n╰─❒";
+   CMD_HELP += "│\n╰─❒";
     return await message.reply(CMD_HELP)
     })
 })
 
-inrl({ pattern: [`cmds-count`], sucReact: "🆗", category: ["all", "system"], type : 'info'}, async (message, client) => {
+inrl({ pattern: `cmds`, sucReact: "🆗", category: ["all", "system"], type : 'info'}, async (message, client) => {
 let countcmdOfCmd =0;
 bots.commands.map((command) => {
     countcmdOfCmd += command.pattern.length
   });
     return await client.sendMessage(message.from, {text: countcmdOfCmd.toString()}, { quoted: message });
 });
- inrl({pattern: ['owner'], desc: "to check whether", sucReact: "🥺", category: ['all'],type : 'utility' },   async (message, client) => {
+ inrl({pattern: 'owner', desc: "to check whether", sucReact: "🥺", category: ['all'],type : 'utility' },   async (message, client) => {
   let data = await getVar();
   let {FOOTER,BOT_INFO,PREFIX,GIT,OWNER}=data.data[0];
-	try {
-                  ppuser = await client.profilePictureUrl(client.user.jid, 'image')
-            } 
-	catch {
-                       ppuser = 'https://i.ibb.co/gdp7HrS/8390ad4fefbd.jpg'
-            }
-  let mension = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": ""}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: await getBuffer(ppuser), surface: 200, message: BOT_INFO.split(',')[0], orderTitle: BOT_INFO.split(',')[1], sellerJid: client.user.jid }}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
   let prefix  = PREFIX == 'false' ? '' : PREFIX;
   const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
             + 'VERSION:3.0\n' 
@@ -196,16 +143,14 @@ bots.commands.map((command) => {
             + 'ORG:'+FOOTER+';\n' // the organization of the contact
             + 'TEL;type=CELL;type=VOICE;waid='+OWNER+':'+OWNER+'\n' // WhatsApp ID + phone number
             + 'END:VCARD'
-return await client.sendMessage(message.from, { contacts:{ displayName:`${BOT_INFO.split(",")[0]}`, contacts: [{ vcard }],}},{ quoted: mension })
+return await client.sendMessage(message.from, { contacts:{ displayName:`${BOT_INFO.split(",")[0]}`, contacts: [{ vcard }],}})
 });
-const GDM = "it sends good morning message";
-const GDN = "it sends Night message";
 
 inrl(
 	   {
-	 pattern: ['fancy'],
+	 pattern: 'fancy',
 	 desc: 'To convert text to random style as you want',
-         sucReact: "🙀",
+     sucReact: "🙀",
          category: ["system", "all"],
          type : 'converter',
          media: 'text',
@@ -213,24 +158,12 @@ inrl(
 	   },
 	async (message, client, match) => {
 	try {
-let num = 1,tNum;
-if(message.quoted){
-if(!isNaN(message.quoted.text.trim())){
-num = message.quoted.text.trim()
-    } else {
-match = match || message.quoted.text.trim();
-    }
-}
+if(!message.quoted) return await message.reply('replay To An Text Message');
 if(!match){
 let NewText =`
-Enter A Text Quary
-_ex_ : Enter a text like this *fancy 55,hi*
 1 Fᴀɴᴄʏ
 2 ʎɔuɐℲ
 4 fancy
-5 ʏɔᴎɒꟻ
-6 F̸̧̥̠͔̯̻̱̋̏̾͗̈́͝a̵̟̠̯̐n̷̡̤̪͓͖̹̯̙͂̊͋̊̈́̐͑̋̏c̴̯̒͆́y̶͖̘̹̦͆̎̑͗͝
-7 Ⓕⓐⓝⓒⓨ
 8 F̶a̶n̶c̶y̶
 9 F̴a̴n̴c̴y̴
 10 F̷a̷n̷c̷y̷
@@ -282,24 +215,15 @@ _ex_ : Enter a text like this *fancy 55,hi*
 56 𝐹𝛥𝛮𝐶𝑌
 57 𝙁𝞓𝞜𝘾𝙔
 58 𝐅𝚫𝚴𝐂𝐘
-59 ᖴᗩᑎᑕᎩ
-_ex_ : Enter a text like this *fancy 55,hi*`
+59 ᖴᗩᑎᑕᎩ`
 return await client.sendMessage(message.from, { text : NewText });
     }
-
-if(match.includes(',')){
-match = match.replace(',','');
-tNum = match.split(',')[1]?.trim();
-}
-if(!isNaN(tNum)){
-num = match.split(',')[0].trim()
-} else {
-num = match.split(',')[1].trim()
-}
-let ThenText = await styletext(match, num)
+if(isNaN(match)) return await message.reply('need number by given chart\n'+NewText);
+if(match < 1 || match > 59) return await message.reply('give a number between 1 & 59');
+let ThenText = await styletext(message.quoted.text, match)
 return await client.sendMessage(message.from, { text : ThenText });
  } catch (e){
- return message.reply('need key and values ex :- fancy inrl md 10}')
+ return message.reply('not acceptable')
         }
     }
 );
