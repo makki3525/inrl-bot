@@ -3,6 +3,7 @@ const speed = require("performance-now");
 const {
     getVar,
     inrl,
+    commands,
     tiny,
     config,
     inrlQuita,
@@ -198,7 +199,7 @@ inrl({
     type: 'info'
 }, async (message, client) => {
     let countcmdOfCmd = 0;
-    bots.commands.map((command) => {
+    commands.map((command) => {
         countcmdOfCmd += command.pattern.length
     });
     return await client.sendMessage(message.from, {
