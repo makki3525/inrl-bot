@@ -4,7 +4,7 @@ const { inrl }= require('../lib/');
 const fs = require('fs');
 const {getVar} = require('../lib/database/variable');
 
-inrl({ pattern: ['send','snd'], desc: "it send wa status",sucReact: "⚒️",  category: ["owner"]}, (async (message, client) => {
+inrl({ pattern: 'send', desc: "it send wa status",sucReact: "⚒️",  category: ["owner"],type :"whatsapp"}, (async (message, client) => {
   let data = await getVar();
   let {CAPTION}=data.data[0];
   let cap;
@@ -22,7 +22,7 @@ let location = await message.quoted.download()
 return await client.sendMessage(message.from, { audio: location, mimetype: "audio/mp4",ptt: false});
 }
 }));
-inrl({pattern: ['status'], desc: "to scan", sucReact: "💗", category: ['all'],},   async (message, client) => {
+inrl({pattern: 'status', desc: "to scan", sucReact: "💗", category: ['all'],type :"info"},   async (message, client) => {
   let data = await getVar();
   let {FOOTER}=data.data[0]
         let r_text = new Array ();
