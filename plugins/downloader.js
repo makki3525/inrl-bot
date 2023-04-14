@@ -7,7 +7,7 @@ const {getVar}=require('../lib/database/variable');
 
 inrl(
 	   {
-		pattern: ['google'],
+		pattern: 'google',
 		desc: 'do get goole serch result',
                 sucReact: "🙃",
                 category: ["system", "all"],
@@ -25,7 +25,7 @@ try{
 );
 inrl(
 	   {
-		pattern: ['wikimedia'],
+		pattern: 'wikimedia',
 		desc: 'do get data from wikimedia',
                 sucReact: "🙃",
                 category: ["system", "all"],
@@ -49,13 +49,13 @@ let buttons = [
                 }
         return await client.sendMessage( message.from, buttonMessage, { quoted: message })
  }catch(e){
-    message.send("error"+e)
+    message.send(e)
          }
     }
 );
 inrl(
 	   {
-		pattern: ['ringtone'],
+		pattern: 'ringtone',
 		desc: 'do get random ringtons ',
                 sucReact: "🙃",
                 category: ["system", "all"],
@@ -67,14 +67,14 @@ try{
         let result = await ringTone(message.client.text);
         return await client.sendMessage( message.from, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: message })
  }catch(e){
-    message.send("error"+e)
+    message.send(e)
          }
     }
 );
 
 inrl(
 	   {
-		pattern: ['video'],
+		pattern: 'video',
 		desc: 'To get yt video',
                 sucReact: "💯",
                 category: ["system", "all", "downloade"],
@@ -86,7 +86,7 @@ await getYtV(message, client);
 );
 inrl(
 	   {
-		pattern: ['song'],
+		pattern: 'song',
 		desc: 'get yt video as mp3 output',
                 sucReact: "🤙",
                 category: ["system", "all", "downloade"],
@@ -98,7 +98,7 @@ await getYtA(message, client)
 );
 inrl(
 	   {
-		pattern: ['movie'],
+		pattern: 'movie',
 		desc: 'To get detiles of movie',
                 sucReact: "💥",
                 category: ["system", "all", "downloade"],
@@ -109,14 +109,14 @@ if(!match) return message.send("enter name of movie");
 try {
 await movie(message,client);
 }catch(e){
-message.send("error"+e);
+message.send(e);
     }
   }
 );
 
 inrl(
 	   {
-		pattern: ['weather'],
+		pattern: 'weather',
 		desc: 'To get detiles of you place',
                 sucReact: "🔥",
                 category: ["system", "all"],
@@ -126,13 +126,13 @@ inrl(
 try {
 return await wather(message,client);
 }catch(e){
-return message.send("error"+e);
+return message.send(e);
     }
   }
 );
 inrl(
 	   {
-		pattern: ['insta'],
+		pattern: 'insta',
 		desc: 'do get instgram videos',
                 sucReact: "🙃",
                 category: ["system", "all"],
@@ -148,7 +148,7 @@ inrl(
 );
 inrl(
 	   {
-		pattern: ['mediafire'],
+		pattern: 'mediafire',
 		desc: 'it send mediafire app',
                 sucReact: "🙃",
                 category: ["system", "all", "downloade"],
@@ -171,7 +171,7 @@ inrl(
 })
 inrl(
 	   {
-		pattern: ['getfilm'],
+		pattern: 'getfilm',
 		desc: 'it send result of film',
                 sucReact: "🙃",
                 category: ["system", "all", "downloade"],
@@ -182,7 +182,7 @@ inrl(
   });
      inrl(
 	   {
-	    pattern: ['twitter','tw'],
+	    pattern: 'twitter',
 	    desc: 'To get twitter video',
         sucReact: "💯",
         category: ["system", "all"],
@@ -193,7 +193,7 @@ inrl(
 	});
       inrl(
 	   {
-	    pattern: ['fb','facebook'],
+	    pattern: 'fb',
 	    desc: 'To get fb video',
         sucReact: "💯",
         category: ["system", "all"],
