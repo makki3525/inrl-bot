@@ -1,8 +1,8 @@
 const os = require("os");
 const speed = require("performance-now");
-const { inrl , tiny, config, inrlQuita, insult , getBuffer, randomStyle, styletext, send_alive, send_menu } = require('../lib/')
+const { getVar, inrl , tiny, config, inrlQuita, insult , getBuffer, randomStyle, styletext, send_alive, send_menu } = require('../lib/')
 const Config = require("../config");
-const {getVar}=require('../lib/database/variable');
+const categories = ["search", "all", "downloade", "chat", "system", 'fun', '18+', 'apk','ff','owner', 'create', 'group', "logo","photo","sticker","anime" ];
 
 inrl(
 	   {
@@ -17,8 +17,6 @@ inrl(
     let data = await getVar();
     let {FOOTER,BOT_INFO,PREFIX}=data.data[0];
     let perfix  = PREFIX == 'false' ? '' : PREFIX;
-
-const categories = ["search", "all", "downloade", "chat", "system", 'fun', '18+', 'apk','ff','owner', 'create', 'group', "logo","photo","sticker","anime" ];
 let rows =[];
 for(i=0;i<categories.length;i++){
   if([i]) rows.push({title: `${categories[i]}-menu`, rowId:`${perfix}${categories[i]}-menu`,description: `${FOOTER}`})
