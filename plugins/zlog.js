@@ -7,6 +7,7 @@ const {
     normalizeMessageContent,
     proto,
     delay,
+    areJidsSameUser,
     downloadContentFromMessage,
     getBinaryNodeChild,
     WAMediaUpload,
@@ -28,14 +29,14 @@ inrl({
                 fromMe :true,
                 onlyPm :false,
                 onlyGroup :false,
-		pattern: ['eval'],
+		pattern: 'eval',
 		desc: 'this send evaled data for your request',
                 sucReact: "💥",
                 category: ["system", "all"],
                 type : "owner",
                 usage: "give evaled data for your script"
 	   },
-	async (message, client) => {
+	async (message, client, Texts, cmd, store) => {
     let m = message, c = conn = client;
     if(!message.client.body.trim().startsWith('>')) return;
     let match = message.client.body.replace('>','').trim();let text = match;
