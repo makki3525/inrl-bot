@@ -198,12 +198,8 @@ inrl({
     category: ["all", "system"],
     type: 'info'
 }, async (message, client) => {
-    let countcmdOfCmd = 0;
-    commands.map((command) => {
-        countcmdOfCmd += command.pattern.length
-    });
     return await client.sendMessage(message.from, {
-        text: countcmdOfCmd.toString()
+        text: commands.length.toString()
     }, {
         quoted: message
     });
