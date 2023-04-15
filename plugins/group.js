@@ -344,11 +344,23 @@ inrl({
     if (!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
     if (match && match != "all") return await message.reply("if you need to get all fake number from all group try *getfake all*");
     if (!match || match != "all") {
-        let data = await GetFake(message.from);
+        let data = await GetFake(message.from)
+        if(!data) return await message.reply("no data");
         return await message.reply(data);
     } else if (match == "all") {
+        let T_X_T = "result for all group\n";
         let data = await getListofFake();
-        return await message.reply(data);
+        if (!data || data == "no data") return await message.reply("no data");
+        await data.map(async ({
+            id,
+            data,
+            jid
+        }) => {
+            if (id == withValue()) {
+                T_X_T += `id : ${id}\nnumber: ${data} \njid : ${jid}\n\n`
+            } else T_X_T += "no data"
+        });
+        return await message.reply(T_X_T);
     }
 });
 inrl({
@@ -364,10 +376,22 @@ inrl({
     if (match && match != "all") return await message.reply("if you need to get all words from all group try *getword all*");
     if (!match || match != "all") {
         let data = await GetWords(message.from);
+        if(!data) return await message.reply("no data");
         return await message.reply(data);
     } else if (match == "all") {
+        let T_X_T = "result for all group\n";
         let data = await getListOfWord();
-        return await message.reply(data);
+        if (!data || data == "no data") return await message.reply("no data");
+        await data.map(async ({
+            id,
+            data,
+            jid
+        }) => {
+            if (id == withValue()) {
+                T_X_T += `id : ${id}\nword: ${data} \njid : ${jid}\n\n`
+            } else T_X_T += "no data"
+        });
+        return await message.reply(T_X_T);
     }
 });
 inrl({
