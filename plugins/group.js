@@ -54,7 +54,7 @@ module.exports = async (msg, conn, m, store) => {
             }) => {
                 time2 = moment().tz('Asia/Kolkata').format('HH:mm');
                 if (time2 == time) {
-                  setTimeout(()=>{
+                  setTimeout(async()=>{
                     let BotAdmin = await isBotAdminV1(m, conn, jid);
                     if (!BotAdmin) return;
                     return await conn.groupSettingUpdate(jid, "announcement");
@@ -70,7 +70,7 @@ module.exports = async (msg, conn, m, store) => {
         }) => {
             time1 = moment().tz('Asia/Kolkata').format('HH:mm');
             if (time1 == time) {
-              setTimeout(()=>{
+              setTimeout(async()=>{
                 let BotAdmin = await isBotAdminV1(m, conn, jid);
                 if (!BotAdmin) return;
                 return await conn.groupSettingUpdate(jid, "not_announcement");
