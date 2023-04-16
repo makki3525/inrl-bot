@@ -219,7 +219,7 @@ inrl({
     if (!BotAdmin) return await message.reply('Bot must Be Admin');
     if (!admin && !message.client.isCreator) return await message.reply('Action only For admin or Owner');
     if (!match) return await message.reply('_give me the starting of fake Number_');
-    match = match.replace(/[^a-zA-Z ]/g, "");
+    match = match.replace(/[^0-9]/g, "");
     if (isNaN(match)) return message.reply('*need Number!*');
     let data = await GetFake(message.from);
     await message.reply(data)
