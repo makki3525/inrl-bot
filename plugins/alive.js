@@ -182,7 +182,7 @@ categories.map(category => {
         } = data.data[0];
         let prefix = PREFIX == 'false' ? '' : PREFIX;
         let CMD_HELP = `╭─❒「  ${category}-menu  」 \n`
-        bots.commands.map((command) => {
+        commands.map((command) => {
             if (command.dontAddCommandList || command.pattern === undefined || command.pattern === null) return;
             if (command.category.includes(category)) {
                 command.pattern.map((cmd) => CMD_HELP += "│ •  " + cmd + "\n")
